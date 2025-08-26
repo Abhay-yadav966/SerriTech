@@ -11,7 +11,7 @@ export const getPokemon = async (setData, addPokemons) => {
             );
         }
 
-        addPokemons(response?.data?.results);
+        // addPokemons(response?.data?.results);
         setData(response?.data?.results);
         toast.success("Data Fetched");
     } catch (err) {
@@ -30,7 +30,7 @@ export const fetchPokemonDetail = async (api, setPokeMonDetail, addPokemonDetail
                 "Something went wront in fetching Pokemon Details"
             );
         }
-        addPokemonDetails(response?.data);
+        // addPokemonDetails(response?.data);
         setPokeMonDetail(response?.data);
         toast.success("Data Fetched");
      }catch(err){
