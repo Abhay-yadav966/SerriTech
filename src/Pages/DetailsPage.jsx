@@ -1,31 +1,22 @@
 import React, { useRef } from "react";
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { fetchPokemonDetail } from "../services/pokeAPI";
 const DetailsPage = ({api, cancle}) => {
 
     const popUpRef = useRef();
 
     const [pokeMonDetail, setPokeMonDetail] = React.useState(null);
-    console.log("pokeMonDetail : ",pokeMonDetail);
-    console.log("pokeMonDetail?.moves : ", pokeMonDetail?.moves)
+    
     React.useEffect(() => {
         fetchPokemonDetail(api, setPokeMonDetail);
     }, [api]);
 
-
-    const closeOnClickOutSide = (e) => {
-        if(api && popUpRef.current && !popUpRef.current.contains(e.target)){
-            cancle(false);
-        }
-    }
-
-    React.useEffect(() => {
-        document.addEventListener('mousedown', closeOnClickOutSide);
-        return () => document.removeEventListener('mousedown', closeOnClickOutSide);
-    }, [api])
-
     return (
         <div ref={popUpRef} className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" >
-            <div className="bg-white rounded-lg p-6 w-150 shadow-lg h-[80vh]" >
+            <div className=" relative bg-white rounded-lg p-6 w-150 shadow-lg h-[80vh]" >
+                <div className="absolute top-2 right-2" onClick={() => cancle(null)} >
+                    <ClearOutlinedIcon />
+                </div>
                 <h1 className="text-center font-extrabold text-5xl" >{pokeMonDetail?.name?.charAt(0).toUpperCase() + pokeMonDetail?.name?.slice(1)}</h1>
                 <img 
                     src={pokeMonDetail?.sprites?.front_default}
