@@ -11,3 +11,7 @@
       npm install
 
    ```
+
+   ## Technologies Used
+- Frontend: ReactJS, TailwindCSS
+
