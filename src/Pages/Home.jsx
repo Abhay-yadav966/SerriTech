@@ -1,8 +1,7 @@
 import React from "react";
-import { getPokemon } from "../Services/pokeAPI";
 import DetailsPage from "./DetailsPage";
 import useStore from "../store/PokemonData";
-
+import { getPokemon } from "../Services/pokeAPI";
 function Home(){
 
     const { Pokemons, addPokemons} = useStore();
