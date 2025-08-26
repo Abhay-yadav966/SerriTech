@@ -1,10 +1,13 @@
 import React from "react";
 import { getPokemon } from "../services/pokeAPI";
 import DetailsPage from "./DetailsPage";
+import useStore from "../store/PokemonData";
 
 function Home(){
 
-    const [data, setData] = React.useState([]);
+    const { Pokemons, addPokemons} = useStore();
+
+    const [data, setData] = React.useState(Pokemons);
     
     const [showPokemon, setShowPokemon] = React.useState(null);
 
@@ -43,7 +46,7 @@ function Home(){
                                                 <button
                                                     type="button"
                                                     className="rounded-full px-4 py-2 text-lg cursor-pointer  bg-white text-blue-500 font-bold "
-                                                    onClick={() => setShowPokemon(pokemonData?.url)}
+                                                    onClick={() => setShowPokemon(pokemonData?.url, addPokemons)}
                                                 >
                                                     View Details
                                                 </button>

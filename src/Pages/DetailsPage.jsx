@@ -1,14 +1,15 @@
 import React, { useRef } from "react";
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { fetchPokemonDetail } from "../services/pokeAPI";
+import useStore from "../store/PokemonData";
 const DetailsPage = ({api, cancle}) => {
 
-    const popUpRef = useRef();
+    const {PokemonDetails, addPokemonDetails} = useStore();
 
-    const [pokeMonDetail, setPokeMonDetail] = React.useState(null);
+    const [pokeMonDetail, setPokeMonDetail] = React.useState(PokemonDetails);
     
     React.useEffect(() => {
-        fetchPokemonDetail(api, setPokeMonDetail);
+        fetchPokemonDetail(api, setPokeMonDetail, addPokemonDetails);
     }, [api]);
 
     return (
