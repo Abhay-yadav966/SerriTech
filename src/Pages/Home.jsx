@@ -1,5 +1,5 @@
 import React from "react";
-import { getPokemon } from "../services/pokeAPI";
+import { getPokemon } from "../Services/pokeAPI";
 import DetailsPage from "./DetailsPage";
 import useStore from "../store/PokemonData";
 
