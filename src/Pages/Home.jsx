@@ -2,25 +2,31 @@ import React from "react";
 import { getPokemon } from "../Services/pokeAPI";
 import DetailsPage from "./DetailsPage";
 import useStore from "../store/PokemonData";
+import Image from "../assets/BgImage.jpg";
+import blackIcon from "../assets/blackLogo.jpg";
 
 function Home(){
 
-    const { Pokemons} = useStore();
+    const { isLoading, Pokemons} = useStore();
     const [data, setData] = React.useState(Pokemons);
     
     const [showPokemon, setShowPokemon] = React.useState(null);
 
+    console.log("isLoading : ", isLoading);
     return (
-        <div className=" bg-[#E8F0FE] h-screen w-screen" >
+        <div 
+            className=" bg-[#E8F0FE] h-screen w-screen "
+            style={{backgroundImage:`url(${Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+        >
             {/* header */}
-            <nav className="h-15 shadow-xl bg-black flex items-center justify-center " ><h1 className="font-bold text-3xl text-white " >The Pokemon Research Lab</h1></nav>
+            <nav className="h-15 shadow-xl bg-black flex items-center justify-center relative" > <img src={blackIcon}  onClick={() => setData([])} className=" cursor-pointer h-[80%] absolute left-10" /> <h1 className="font-bold text-3xl text-white " >The Pokemon Research Lab</h1></nav>
         
             {
                 data?.length == 0 ? (
                     <div className=" h-[90vh] flex items-center justify-center" >
                         <button 
                             type="button"
-                            className="font-bold text-white text-2xl bg-yellow-500 h-fit px-4 py-2 rounded-xl cursor-pointer " 
+                            className="font-semibold text-white text-xl bg-[#4B4B4B] h-fit px-16 py-4 rounded-full cursor-pointer border border-[#4B4B4B] hover:bg-white hover:text-[#4B4B4B]" 
                             onClick={() => getPokemon(setData)}
                         >
                             Fetch Full Pokedex Dataset
@@ -31,7 +37,7 @@ function Home(){
                         <h1 className="text-black font-bold text-4xl" >
                             Pokemon - I Choose You!
                         </h1>
-                        <div className="scroll rounded border-4 border-gray-400 flex flex-col gap-2 h-[75vh] overflow-y-auto p-2" >
+                        <div className="scroll rounded border-4 border-black flex flex-col gap-2 h-[75vh] overflow-y-auto p-2" >
                             <div className="grid grid-cols-5 gap-2" >
                                 {
                                     data?.length > 0 && data?.map((pokemonData, index) => (
@@ -58,6 +64,13 @@ function Home(){
                         </div>
                     </div>    
                 )
+            }
+
+
+            {
+                isLoading && <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" >
+                    <div class="custom-loader"></div>
+                </div>
             }
 
             {

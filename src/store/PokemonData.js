@@ -7,6 +7,14 @@ const useStore = create((set, get) => ({
   // Object data
   PokemonDetails: null,
 
+  // Loading
+  isLoading: false,
+
+  // loading
+  setLoading: (loading) => set(() => ({
+    isLoading: loading
+  })),
+
   addPokemons: (item) => set(() => ({
     Pokemons: [...item]
   })),

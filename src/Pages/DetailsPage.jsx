@@ -4,6 +4,7 @@ import { fetchPokemonDetail } from "../Services/pokeAPI";
 import useStore from "../store/PokemonData";
 const DetailsPage = ({api, cancle}) => {
 
+    const modelRef = useRef(null);
     const {PokemonDetails} = useStore();
     const [pokeMonDetail, setPokeMonDetail] = React.useState(PokemonDetails);
     
@@ -11,9 +12,23 @@ const DetailsPage = ({api, cancle}) => {
         fetchPokemonDetail(api, setPokeMonDetail);
     }, [api]);
 
+    React.useEffect(() => {
+        function handleClickOutside(event){
+            if(modelRef.current && !modelRef.current.contains(event.target)){
+                cancle(null);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, [cancle])
+
     return (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" >
-            <div className=" relative bg-white rounded-lg p-6 w-150 shadow-lg h-[80vh]" >
+        <div 
+            className="fixed inset-0 bg-white/30  backdrop-blur-md flex items-center justify-center z-50" 
+        >
+            <div ref={modelRef} className="backdrop-blur-md bg-white/30 border border-white/40 rounded-xl p-10 shadow-lg w-[50%] " >
                 <div className=" cursor-pointer absolute top-2 right-2" onClick={() => cancle(null)} >
                     <ClearOutlinedIcon />
                 </div>
@@ -25,7 +40,7 @@ const DetailsPage = ({api, cancle}) => {
 
                 <div className="h-[30vh]" >
                     <h2 className="font-bold text-2xl" >Moves</h2>
-                    <div className="flex flex-wrap gap-2 overflow-y-auto  rounded-xl p-4 h-full scroll  border-4 border-gray-400 " >
+                    <div className="flex flex-wrap gap-2 overflow-y-auto  rounded-xl p-4 h-full scroll  border-4 border-black " >
                         {
                             pokeMonDetail?.moves?.map((pokemonMove, index) => (
                                 <div
