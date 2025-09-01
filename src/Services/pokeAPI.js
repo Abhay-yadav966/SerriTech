@@ -26,8 +26,9 @@ export const getPokemon = async (setData) => {
 }
 
 export const fetchPokemonDetail = async (api, setPokeMonDetail) => {
-     const { addPokemonDetails } = useStore.getState();
+     const { addPokemonDetails, setLoading } = useStore.getState();
      const toastId = toast.loading("Loading...");
+     setLoading(true);
      try{
         const response = await axios.get(api);
         if (response?.status !== 200) {
@@ -42,5 +43,6 @@ export const fetchPokemonDetail = async (api, setPokeMonDetail) => {
         console.log("Error : ", err);
         toast.error("Data Not Found");
      }
+     setLoading(false);
      toast.dismiss(toastId);
 }

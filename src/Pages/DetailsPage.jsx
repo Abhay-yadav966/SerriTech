@@ -5,7 +5,7 @@ import useStore from "../store/PokemonData";
 const DetailsPage = ({api, cancle}) => {
 
     const modelRef = useRef(null);
-    const {PokemonDetails} = useStore();
+    const {PokemonDetails, isLoading} = useStore();
     const [pokeMonDetail, setPokeMonDetail] = React.useState(PokemonDetails);
     
     React.useEffect(() => {
@@ -44,7 +44,7 @@ const DetailsPage = ({api, cancle}) => {
                         {
                             pokeMonDetail?.moves?.map((pokemonMove, index) => (
                                 <div
-                                    className="rounded-full px-4 py-1 text-md font-semibold bg-red-500 text-white "
+                                    className="rounded-full px-4 py-1 text-md font-semibold bg-red-500 text-white h-fit"
                                     key={index}
                                 >
                                     <p className="text-nowrap" >{pokemonMove?.move?.name}</p>
@@ -54,6 +54,12 @@ const DetailsPage = ({api, cancle}) => {
                     </div>
                 </div>
             </div>
+            
+            {
+                isLoading && <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" >
+                    <div class="custom-loader"></div>
+                </div>
+            }
         </div>
     )
 }

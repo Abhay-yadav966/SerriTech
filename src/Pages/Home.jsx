@@ -4,6 +4,7 @@ import DetailsPage from "./DetailsPage";
 import useStore from "../store/PokemonData";
 import Image from "../assets/BgImage.jpg";
 import blackIcon from "../assets/blackLogo.jpg";
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
 function Home(){
 
@@ -48,6 +49,12 @@ function Home(){
                                             <h2 className="text-white font-bold text-4xl" >{pokemonData?.name?.charAt(0).toUpperCase() + pokemonData?.name?.slice(1) }</h2>
 
                                             <div className=" absolute hidden group-hover:flex items-center justify-center h-full w-full rounded-lg inset-0 bg-black/50" >
+                                                <div 
+                                                    onClick={() => setData((prev) => prev.filter((pokeData) => pokeData?.name !== pokemonData?.name))}
+                                                    className=" absolute top-2 right-2 bg-white p-0.5 rounded-full" 
+                                                >
+                                                    <ClearOutlinedIcon />
+                                                </div>
                                                 <button
                                                     type="button"
                                                     className="rounded-full px-4 py-2 text-lg cursor-pointer  bg-white text-blue-500 font-bold "
