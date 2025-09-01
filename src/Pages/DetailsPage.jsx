@@ -1,21 +1,20 @@
 import React, { useRef } from "react";
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { fetchPokemonDetail } from "../services/pokeAPI";
+import { fetchPokemonDetail } from "../Services/pokeAPI";
 import useStore from "../store/PokemonData";
 const DetailsPage = ({api, cancle}) => {
 
-    const {PokemonDetails, addPokemonDetails} = useStore();
-
+    const {PokemonDetails} = useStore();
     const [pokeMonDetail, setPokeMonDetail] = React.useState(PokemonDetails);
     
     React.useEffect(() => {
-        fetchPokemonDetail(api, setPokeMonDetail, addPokemonDetails);
+        fetchPokemonDetail(api, setPokeMonDetail);
     }, [api]);
 
     return (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" >
             <div className=" relative bg-white rounded-lg p-6 w-150 shadow-lg h-[80vh]" >
-                <div className="absolute top-2 right-2" onClick={() => cancle(null)} >
+                <div className=" cursor-pointer absolute top-2 right-2" onClick={() => cancle(null)} >
                     <ClearOutlinedIcon />
                 </div>
                 <h1 className="text-center font-extrabold text-5xl" >{pokeMonDetail?.name?.charAt(0).toUpperCase() + pokeMonDetail?.name?.slice(1)}</h1>

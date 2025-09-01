@@ -5,8 +5,7 @@ import useStore from "../store/PokemonData";
 
 function Home(){
 
-    const { Pokemons, addPokemons} = useStore();
-
+    const { Pokemons} = useStore();
     const [data, setData] = React.useState(Pokemons);
     
     const [showPokemon, setShowPokemon] = React.useState(null);
@@ -46,7 +45,7 @@ function Home(){
                                                 <button
                                                     type="button"
                                                     className="rounded-full px-4 py-2 text-lg cursor-pointer  bg-white text-blue-500 font-bold "
-                                                    onClick={() => setShowPokemon(pokemonData?.url, addPokemons)}
+                                                    onClick={() => setShowPokemon(pokemonData?.url)}
                                                 >
                                                     View Details
                                                 </button>

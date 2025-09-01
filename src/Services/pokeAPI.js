@@ -1,7 +1,9 @@
 import axios from "axios";
 import toast from "react-hot-toast"
+import useStore  from "../store/PokemonData"
 
-export const getPokemon = async (setData, addPokemons) => {
+export const getPokemon = async (setData) => {
+    const { addPokemons } = useStore.getState();
     const toastId = toast.loading("Loading...");
     try {
         const response = await axios.get(" https://pokeapi.co/api/v2/pokemon");
@@ -11,7 +13,7 @@ export const getPokemon = async (setData, addPokemons) => {
             );
         }
 
-        // addPokemons(response?.data?.results);
+        addPokemons(response?.data?.results);
         setData(response?.data?.results);
         toast.success("Data Fetched");
     } catch (err) {
@@ -21,7 +23,8 @@ export const getPokemon = async (setData, addPokemons) => {
     toast.dismiss(toastId);
 }
 
-export const fetchPokemonDetail = async (api, setPokeMonDetail, addPokemonDetails) => {
+export const fetchPokemonDetail = async (api, setPokeMonDetail) => {
+     const { addPokemonDetails } = useStore.getState();
      const toastId = toast.loading("Loading...");
      try{
         const response = await axios.get(api);
@@ -30,7 +33,7 @@ export const fetchPokemonDetail = async (api, setPokeMonDetail, addPokemonDetail
                 "Something went wront in fetching Pokemon Details"
             );
         }
-        // addPokemonDetails(response?.data);
+        addPokemonDetails(response?.data);
         setPokeMonDetail(response?.data);
         toast.success("Data Fetched");
      }catch(err){
